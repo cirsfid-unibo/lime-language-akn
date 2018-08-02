@@ -513,6 +513,21 @@
   </xsl:element>
     </xsl:template>
 
+    <xsl:template match="div[contains(@class,'meta')]//div[@class = 'note']">
+        <xsl:element name="note">
+            <xsl:apply-templates select="@*" mode="aknPrefixAttributes" />
+            <xsl:apply-templates select="@*[not(name() =  'class')]" mode="notAknPrefixAttributes" />
+            <xsl:choose>
+                <xsl:when test="not(./p)">
+                    <p><xsl:apply-templates /></p>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates />
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:element>
+    </xsl:template>
+
     <xsl:template match="div[contains(@class,'meta')]//div[contains(@class,'FRBRWork') or
                              contains(@class,'FRBRExpression') or
                              contains(@class,'FRBRManifestation')]">
